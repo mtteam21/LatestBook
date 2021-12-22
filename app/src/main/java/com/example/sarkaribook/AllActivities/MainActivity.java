@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         menuimageView = findViewById(R.id.menuIcon);
 
 
-
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         navigationView.setItemIconTintList(ColorStateList.valueOf(R.color.white));

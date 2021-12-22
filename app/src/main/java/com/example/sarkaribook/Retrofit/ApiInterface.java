@@ -24,4 +24,6 @@ public interface ApiInterface {
 
     @GET("Subcat/sub_cat/")
     Call<List<Subcategory>> getSubcategories(@Query("id") String id);
+
+
 }

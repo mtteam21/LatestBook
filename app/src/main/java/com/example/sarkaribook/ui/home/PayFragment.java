@@ -39,12 +39,12 @@ public class PayFragment extends Fragment {
 
         subscriptionList = new ArrayList<>();
 
-        subscriptionList.add(new Subscription(""));
-        subscriptionList.add(new Subscription(""));
-        subscriptionList.add(new Subscription(""));
-        subscriptionList.add(new Subscription(""));
+        subscriptionList.add(new Subscription("Buy For 1 Month","In Just Rs 99"));
+        subscriptionList.add(new Subscription("Buy For 3 Months", "In Just Rs 199"));
+        subscriptionList.add(new Subscription("Buy For 6 Months","In Just Rs 299"));
+        subscriptionList.add(new Subscription("Buy For 12 Months","In Just Rs 399"));
 
-        SubscriptionPlanAdapter adapter = new SubscriptionPlanAdapter(subscriptionList);
+        SubscriptionPlanAdapter adapter = new SubscriptionPlanAdapter(subscriptionList,getActivity());
         subscriptionRecyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
