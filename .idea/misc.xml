@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/activity_otp_verify.xml" value="0.27793974732750243" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/activity_subcategory.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1875" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/fragment_download.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2046875" />
+        <entry key="app/src/main/res/layout/fragment_pay.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/fragment_user.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_buy_subscription.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_category.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_download.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_subcategory.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_user.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/menu/main.xml" value="0.3098958333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "916496111525",
+    "project_id": "sarkarilibrary",
+    "storage_bucket": "sarkarilibrary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916496111525:android:77c361e37eac15d716ba4c",
+        "android_client_info": {
+          "package_name": "com.mt.sarkaribook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916496111525-hvanjldmmaf4tufp176qc8ohlkmokint.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mt.sarkaribook",
+            "certificate_hash": "7a6a6e6665ef1d9799083b136b660788101117f0"
+          }
+        },
+        {
+          "client_id": "916496111525-fs21ahkc09lrgn8bmrs3p63snnc02ga6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW1pSV-iST3Qjb6s2O4kl-exNUQYamafA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916496111525-fs21ahkc09lrgn8bmrs3p63snnc02ga6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

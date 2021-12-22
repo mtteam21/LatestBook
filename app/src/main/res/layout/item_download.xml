@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="76dp"
+        android:background="@drawable/round"
+        android:backgroundTint="@color/purple_500"
+        android:layout_height="76dp"/>
+
+    <LinearLayout
+        android:layout_marginStart="5dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cTitle"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Previous Year book Questions"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_marginTop="3dp"
+            android:id="@+id/g"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Previous Year book Questions"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
