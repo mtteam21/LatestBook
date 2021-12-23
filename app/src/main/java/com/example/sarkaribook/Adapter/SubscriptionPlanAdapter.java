@@ -1,5 +1,7 @@
 package com.example.sarkaribook.Adapter;
 
+import static com.example.sarkaribook.Retrofit.ApiUtils.BASE_URL;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -13,15 +15,31 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sarkaribook.AllActivities.OtpVerifyActivity;
+import com.example.sarkaribook.Model.StorePlan;
 import com.example.sarkaribook.Model.Subscription;
+import com.example.sarkaribook.Model.UserLogin;
 import com.example.sarkaribook.R;
+import com.example.sarkaribook.Retrofit.ApiInterface;
+import com.example.sarkaribook.TinyDB;
 import com.shreyaspatil.EasyUpiPayment.EasyUpiPayment;
 import com.shreyaspatil.EasyUpiPayment.listener.PaymentStatusListener;
 import com.shreyaspatil.EasyUpiPayment.model.TransactionDetails;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SubscriptionPlanAdapter extends RecyclerView.Adapter<SubscriptionPlanAdapter.viewHolder> implements PaymentStatusListener {
@@ -29,6 +47,7 @@ public class SubscriptionPlanAdapter extends RecyclerView.Adapter<SubscriptionPl
     List<Subscription> subscriptionList;
     Activity activity;
     String passThisForDuration;
+    String passThisForAmount;
     public SubscriptionPlanAdapter(List<Subscription> subscriptionList,Activity context) {
         this.subscriptionList = subscriptionList;
         this.activity = context;
@@ -51,11 +70,11 @@ public class SubscriptionPlanAdapter extends RecyclerView.Adapter<SubscriptionPl
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String passThisForAmount = subscriptionList.get(position).getAmountText();
+                passThisForAmount = subscriptionList.get(position).getAmountText();
                 passThisForDuration = subscriptionList.get(position).getMonthText();
                 extractInt(passThisForAmount);
 
-                makePayment(extractInt(passThisForDuration)+".00", "sangharsh3599@oksbi", "name", "desc", "0");
+                makePayment(extractInt(passThisForDuration)+".00", "sangharsh3599@okaxis", "name", "desc", "0");
             }
         });
     }
@@ -131,6 +150,44 @@ public class SubscriptionPlanAdapter extends RecyclerView.Adapter<SubscriptionPl
 
     @Override
     public void onTransactionSuccess() {
+        HttpLoggingInterceptor LOG = new HttpLoggingInterceptor();
+        LOG.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(LOG).build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL) // Specify your api here
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        TinyDB tinyDB = new TinyDB(activity.getApplicationContext());
+        int user_id = tinyDB.getInt("id");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // Using today's date
+        c.add(Calendar.DATE, Integer.parseInt(extractInt(passThisForDuration))); // Adding 5 days
+        String expiredDate = sdf.format(c.getTime());
+        System.out.println(expiredDate);
+
+        StorePlan userLogin = new StorePlan(Integer.parseInt(extractInt(passThisForDuration)),user_id,extractInt(passThisForAmount),expiredDate);
+        Call<StorePlan> call = api.storePlanDetails(userLogin);
+
+        call.enqueue(new Callback<StorePlan>() {
+            @Override
+            public void onResponse(Call<StorePlan> call, Response<StorePlan> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(activity,"Stored Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StorePlan> call, Throwable t) {
+
+            }
+        });
 
         // this method is called when transaction is successful and we are displaying a toast message.
         Toast.makeText(activity, "Transaction successfully completed..", Toast.LENGTH_SHORT).show();
@@ -150,8 +207,46 @@ public class SubscriptionPlanAdapter extends RecyclerView.Adapter<SubscriptionPl
     }
     @Override
     public void onTransactionCancelled() {
-
         extractInt(passThisForDuration);
+
+        HttpLoggingInterceptor LOG = new HttpLoggingInterceptor();
+        LOG.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(LOG).build();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL) // Specify your api here
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build();
+
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        TinyDB tinyDB = new TinyDB(activity.getApplicationContext());
+        int user_id = tinyDB.getInt("id");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date()); // Using today's date
+        c.add(Calendar.DATE, Integer.parseInt(extractInt(passThisForDuration))); // Adding 5 days
+        String expiredDate = sdf.format(c.getTime());
+        System.out.println(expiredDate);
+
+        StorePlan userLogin = new StorePlan(Integer.parseInt(extractInt(passThisForDuration)),user_id,extractInt(passThisForAmount),expiredDate);
+        Call<StorePlan> call = api.storePlanDetails(userLogin);
+
+        call.enqueue(new Callback<StorePlan>() {
+            @Override
+            public void onResponse(Call<StorePlan> call, Response<StorePlan> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(activity,"Stored Successfully", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StorePlan> call, Throwable t) {
+
+            }
+        });
         // this method is called when transaction is cancelled.
         Toast.makeText(activity, "Transaction cancelled..", Toast.LENGTH_SHORT).show();
     }

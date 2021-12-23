@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sarkaribook.AllActivities.pdfBooksActivity;
 import com.example.sarkaribook.Model.Category;
 import com.example.sarkaribook.R;
 import com.example.sarkaribook.AllActivities.SubcategoryActivity;
@@ -42,8 +43,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
        holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(view.getContext(),
-                SubcategoryActivity.class);
+        Intent intent = new Intent(view.getContext(), pdfBooksActivity.class);
         intent.putExtra("id",categoryList.get(position).id);
         Log.e("id",String.valueOf(categoryList.get(position).id));
         view.getContext().startActivity(intent);
@@ -63,5 +63,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.viewHo
             categoryName = itemView.findViewById(R.id.cTitle);
             postTime = itemView.findViewById(R.id.postTimeView);
         }
+    }
+
+    public void filterList(List<Category> productfilterList1){
+         categoryList = productfilterList1;
+        notifyDataSetChanged();
     }
 }

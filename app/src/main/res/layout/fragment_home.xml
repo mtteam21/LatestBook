@@ -18,7 +18,7 @@
 
 
     <EditText
-        android:focusable="false"
+        android:id="@+id/searchEditext"
         android:padding="5dp"
         android:hint="Search Book"
         android:layout_marginStart="20dp"

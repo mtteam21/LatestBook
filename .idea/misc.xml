@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_baseline_menu_book_24.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_otp_verify.xml" value="0.27793974732750243" />
+        <entry key="app/src/main/res/layout/activity_pdf_books.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/activity_pdfview.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/activity_subcategory.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/app_bar_main.xml" value="0.1875" />
@@ -16,6 +19,7 @@
         <entry key="app/src/main/res/layout/item_buy_subscription.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/item_category.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/item_download.xml" value="0.22735507246376813" />
+        <entry key="app/src/main/res/layout/item_ebook.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/item_subcategory.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.22735507246376813" />
         <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.22735507246376813" />

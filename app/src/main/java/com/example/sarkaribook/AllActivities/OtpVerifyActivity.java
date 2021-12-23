@@ -1,5 +1,7 @@
 package com.example.sarkaribook.AllActivities;
 
+import static com.example.sarkaribook.Retrofit.ApiUtils.BASE_URL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +14,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sarkaribook.Model.User;
+import com.example.sarkaribook.Model.UserLogin;
 import com.example.sarkaribook.R;
+import com.example.sarkaribook.Retrofit.ApiInterface;
+import com.example.sarkaribook.Retrofit.Res;
 import com.example.sarkaribook.TinyDB;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -23,6 +29,14 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OtpVerifyActivity extends AppCompatActivity {
 
@@ -92,8 +106,46 @@ public class OtpVerifyActivity extends AppCompatActivity {
                             tinyDB.putString("number",number);
                             tinyDB.putString("email",email);
 
-                            startActivity(i);
-                            finish();
+                            HttpLoggingInterceptor LOG = new HttpLoggingInterceptor();
+                            LOG.level(HttpLoggingInterceptor.Level.BODY);
+                            OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(LOG).build();
+
+                            Retrofit retrofit = new Retrofit.Builder()
+                                    .baseUrl(BASE_URL) // Specify your api here
+                                    .addConverterFactory(GsonConverterFactory.create())
+                                    .client(okHttpClient)
+                                    .build();
+
+                            ApiInterface api = retrofit.create(ApiInterface.class);
+
+                            String user_name = tinyDB.getString("name");
+                            String email = tinyDB.getString("email");
+                            String number = tinyDB.getString("number");
+
+                            UserLogin userLogin = new UserLogin(user_name,email,number,"1");
+                            Call<UserLogin> call = api.registerUser(number,userLogin);
+
+                            call.enqueue(new Callback<UserLogin>() {
+                                @Override
+                                public void onResponse(Call<UserLogin> call, Response<UserLogin> response) {
+                                    if(response.isSuccessful()){
+                                        response.body().getId();
+                                        tinyDB.putInt("id",response.body().getId());
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<UserLogin> call, Throwable t) {
+
+                                }
+                            });
+
+
+
+
+
                         } else {
                             // if the code is not correct then we are
                             // displaying an error message to the user.

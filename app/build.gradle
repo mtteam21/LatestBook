@@ -57,6 +57,10 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.shreyaspatil:EasyUpiPayment:2.0'
     implementation 'com.github.marlonlom:timeago:4.0.3'
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
+    implementation 'com.github.muddassir235:connection_checker:1.7'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

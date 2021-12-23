@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.CalendarContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -44,7 +47,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView categoryRecyclerView;
     private List<Category> categoryList;
     ProgressBar progressBar;
-
+    private EditText searchBar;
+    CategoryAdapter adapter;
 
 
     @Override
@@ -53,6 +57,7 @@ public class HomeFragment extends Fragment {
         v = inflater.inflate(R.layout.fragment_home, container, false);
 
 
+        searchBar = v.findViewById(R.id.searchEditext);
         categoryRecyclerView = v.findViewById(R.id.categoryRecyclerView);
         progressBar = v.findViewById(R.id.progressBar);
 
@@ -86,7 +91,7 @@ public class HomeFragment extends Fragment {
 
                     categoryList = response.body();
 
-                    CategoryAdapter adapter = new CategoryAdapter(categoryList);
+                     adapter = new CategoryAdapter(categoryList);
                     categoryRecyclerView.setAdapter(adapter);
                     categoryRecyclerView.scheduleLayoutAnimation();
                 }
@@ -99,8 +104,40 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
 
 
         return v;
+
+
     }
+
+    private void filter(String text) {
+
+        List<Category> filterlist1 = new ArrayList<>();
+
+        for(Category product: categoryList){
+            if(product.getCategoryName().toLowerCase().contains(text.toString())){
+                filterlist1.add(product);
+            }
+        }
+        adapter.filterList(filterlist1);
+
+    }
+
 }

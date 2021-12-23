@@ -1,22 +1,30 @@
 package com.example.sarkaribook.Adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sarkaribook.AllActivities.PDFViewActivity;
 import com.example.sarkaribook.Model.Category;
 import com.example.sarkaribook.R;
 
+import java.io.File;
 import java.util.List;
 
 public class DownloadedItemsAdapter extends RecyclerView.Adapter<DownloadedItemsAdapter.viewHOLDER> {
-    private List<Category> downloadItemsList;
+    private List<File> downloadItemsList;
+    private Context context;
 
-    public DownloadedItemsAdapter(List<Category> downloadItemsList) {
+    public DownloadedItemsAdapter(List<File> downloadItemsList, Context context) {
         this.downloadItemsList = downloadItemsList;
+        this.context = context;
     }
 
     @NonNull
@@ -27,7 +35,16 @@ public class DownloadedItemsAdapter extends RecyclerView.Adapter<DownloadedItems
     }
 
     @Override
-    public void onBindViewHolder(@NonNull viewHOLDER holder, int position) {
+    public void onBindViewHolder(@NonNull viewHOLDER holder, @SuppressLint("RecyclerView") int position) {
+        holder.cTitle.setText(downloadItemsList.get(position).getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), PDFViewActivity.class);
+                intent.putExtra("path",downloadItemsList.get(position).getPath());
+                view.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -37,8 +54,12 @@ public class DownloadedItemsAdapter extends RecyclerView.Adapter<DownloadedItems
     }
 
     public class viewHOLDER extends RecyclerView.ViewHolder {
+        TextView cTitle;
         public viewHOLDER(@NonNull View itemView) {
             super(itemView);
+
+            cTitle = itemView.findViewById(R.id.cTitle);
+
         }
     }
 }
